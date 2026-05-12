@@ -3,327 +3,409 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Wanluan Fields - 萬巒深呼吸，感受復古風情與客家文化">
-    <title>Wanluan Fields | 萬巒深呼吸</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <meta name="description" content="Wanluan Fields - 萬巒深呼吸，自然與生活的完美融合">
+    <title>Wanluan Fields | 自然深呼吸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --retro-bg: #f2e8cf;
-            --retro-paper: #f9f4e8;
-            --retro-text: #3d2b1f;
-            --retro-border: #5d4037;
-            --retro-accent-red: #bc4749;
-            --retro-accent-green: #6a994e;
-            --retro-accent-blue: #386641;
-            --retro-gold: #a67c52;
-            --ended-color: #8d99ae;
+            --nature-green: #2d6a4f;
+            --nature-light: #d8f3dc;
+            --nature-sage: #95d5b2;
+            --nature-deep: #1b4332;
+            --sky-blue: #e0f2f1;
+            --accent-orange: #ff9f1c;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.5);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--retro-bg);
-            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-            color: var(--retro-text);
-            font-family: 'Noto Serif TC', serif;
-            line-height: 1.6;
-            padding: 20px;
+            background: linear-gradient(180deg, #e0f2f1 0%, #b2dfdb 100%);
+            color: var(--nature-deep);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        .main-wrapper {
-            max-width: 900px;
-            margin: 40px auto;
-            border: 4px double var(--retro-border);
-            padding: 40px;
-            background-color: var(--retro-paper);
-            box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
-            position: relative;
+        /* SVG Background Layer */
+        .nature-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
 
-        /* Retro Stamp Decor */
-        .main-wrapper::after {
-            content: "Wanluan";
+        .mountain-svg {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            border: 3px solid var(--retro-accent-red);
-            color: var(--retro-accent-red);
-            padding: 5px 15px;
-            font-family: 'Playfair Display', serif;
-            font-weight: 900;
-            transform: rotate(15deg);
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            fill: var(--nature-green);
+            opacity: 0.3;
+        }
+
+        .floating-leaf {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            fill: var(--nature-sage);
+            animation: float 15s infinite ease-in-out;
             opacity: 0.6;
-            border-radius: 5px;
-            text-transform: uppercase;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); left: -50px; }
+            100% { transform: translateY(-100vh) rotate(360deg); left: 110%; }
+        }
+
+        /* Interactive SVG Illustrations */
+        .interactive-illustration {
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .interactive-illustration:hover {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        /* Layout */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
         }
 
         header {
             text-align: center;
-            border-bottom: 2px solid var(--retro-border);
-            margin-bottom: 40px;
-            padding-bottom: 20px;
+            padding: 60px 0;
+            animation: fadeInDown 1s ease-out;
         }
 
         h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            letter-spacing: 2px;
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: var(--nature-deep);
+            letter-spacing: -2px;
             margin-bottom: 10px;
-            text-transform: uppercase;
         }
 
-        .container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-        }
-
-        section {
-            border: 1px solid var(--retro-border);
-            padding: 20px;
-            position: relative;
-        }
-
-        section h2 {
-            position: absolute;
-            top: -15px;
-            left: 20px;
-            background-color: var(--retro-paper);
-            padding: 0 15px;
+        .hero-subtitle {
+            font-family: 'Quicksand', sans-serif;
             font-size: 1.5rem;
-            color: var(--retro-border);
+            color: var(--nature-green);
+            font-weight: 600;
         }
 
-        .status-msg {
-            font-style: italic;
+        /* Activity Cards */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 20px 45px rgba(45, 106, 79, 0.15);
+        }
+
+        .icon-wrapper {
+            margin-bottom: 20px;
+            background: var(--nature-light);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .glass-card h2 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--nature-deep);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 15px;
+            background: #eee;
             color: #777;
-            margin-top: 10px;
         }
 
-        /* Calendar Styles */
-        .calendar-container {
+        /* Calendar */
+        .calendar-section {
+            grid-column: 1 / -1;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 40px;
             margin-top: 40px;
-            border: 2px solid var(--retro-border);
-            padding: 20px;
+            border: 1px solid var(--glass-border);
         }
 
         .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
+            margin-bottom: 30px;
         }
 
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
+            gap: 10px;
+        }
+
+        .cal-day-head {
             text-align: center;
-        }
-
-        .calendar-day-head {
-            font-weight: bold;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--retro-border);
-        }
-
-        .calendar-day {
+            font-weight: 800;
             padding: 10px;
-            border: 1px solid #ddd;
-            min-height: 60px;
-            position: relative;
+            color: var(--nature-green);
         }
 
-        .calendar-day.empty {
-            background-color: #eee;
-        }
-
-        /* Activity Colors in Calendar */
-        .act-ended {
-            background-color: var(--ended-color) !important;
-            color: white;
-            text-decoration: line-through;
-        }
-        .act-open {
-            background-color: var(--retro-accent-green) !important;
-            color: white;
-        }
-        .act-closed {
-            background-color: var(--retro-accent-red) !important;
-            color: white;
-        }
-        .act-upcoming {
-            background-color: var(--retro-gold) !important;
-            color: white;
-        }
-
-        .calendar-legend {
+        .cal-day {
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 12px;
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
-            font-size: 0.9rem;
-            flex-wrap: wrap;
-        }
-
-        .legend-item {
-            display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 5px;
+            justify-content: center;
+            font-weight: 600;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
+        .cal-day:hover {
+            background: white;
+            transform: scale(1.05);
         }
 
-        /* Deep Dive Styles */
-        .deep-dive {
-            background-color: #efeadb;
-            padding: 30px;
-            border-top: 4px double var(--retro-border);
-            margin-top: 40px;
+        .cal-day.active-ended {
+            background: #ffebee;
+            color: #d32f2f;
+            border: 2px solid #ef9a9a;
         }
 
-        .deep-dive h3 {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--retro-border);
-            display: inline-block;
+        .cal-day.active-ended::after {
+            content: 'END';
+            font-size: 0.6rem;
+            background: #d32f2f;
+            color: white;
+            padding: 2px 5px;
+            border-radius: 4px;
+            margin-top: 2px;
         }
 
-        .quote-box {
-            margin-top: 40px;
+        /* Info Section */
+        .info-section {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .info-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--nature-green);
+        }
+
+        .quote-banner {
+            grid-column: 1 / -1;
             text-align: center;
+            padding: 80px 40px;
+            font-size: 2.2rem;
+            font-weight: 300;
+            font-family: 'Quicksand', sans-serif;
+            color: var(--nature-deep);
             font-style: italic;
-            font-size: 1.2rem;
-            padding: 20px;
-            border: 1px dashed var(--retro-border);
         }
 
-        @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
-            .main-wrapper { padding: 20px; }
-            .calendar-day { min-height: 40px; font-size: 0.8rem; }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Decorative SVGs */
+        .flower-icon { fill: var(--accent-orange); }
+        .leaf-icon { fill: var(--nature-green); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            .info-section { grid-template-columns: 1fr; }
+            .cal-day { font-size: 0.8rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="main-wrapper">
+    <!-- SVG Background Elements -->
+    <div class="nature-bg">
+        <svg class="mountain-svg" viewBox="0 0 1440 320">
+            <path d="M0,224L48,213.3C96,203,192,181,288,186.7C384,192,480,224,576,218.7C672,213,768,171,864,160C960,149,1056,171,1152,186.7C1248,203,1344,213,1392,218.7L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+        <!-- Floating Leaves -->
+        <script>
+            for(let i=0; i<15; i++) {
+                let leaf = document.createElement('div');
+                leaf.className = 'floating-leaf';
+                leaf.style.top = Math.random() * 100 + 'vh';
+                leaf.style.left = '-50px';
+                leaf.style.animationDelay = (Math.random() * 15) + 's';
+                leaf.style.transform = `scale(${0.5 + Math.random()})`;
+                leaf.innerHTML = `<svg viewBox="0 0 24 24"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8.13,20C11,20 14.28,17.29 18,10C19.56,6.91 20,4.6 20,3C20,1.34 18.66,0 17,0C15.4,0 13.09,0.44 10,2C2.71,5.72 0,9 0,11.87C0,12.36 0.13,12.86 0.3,13.34L2.66,14.29L2,16.18C7.17,18.1 13.31,16 16,7C16.33,5.9 16.5,4.85 16.5,3.9C16.5,3.4 16.1,3 15.6,3C14.65,3 13.6,3.17 12.5,3.5C9.56,4.41 7.24,5.9 5.5,8C7.6,8 9.75,8.1 12,8.1C13.65,8.1 15.35,8.05 17,8Z"/></svg>`;
+                document.querySelector('.nature-bg').appendChild(leaf);
+            }
+        </script>
+    </div>
+
+    <main class="main-container">
         <header>
+            <div class="interactive-illustration" style="width: 120px; margin: 0 auto 20px;">
+                <svg viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="#e8f5e9" />
+                    <path d="M50 20 C60 40 80 50 50 80 C20 50 40 40 50 20" fill="#2d6a4f" />
+                    <circle cx="50" cy="50" r="5" fill="#ff9f1c" />
+                </svg>
+            </div>
             <h1>Wanluan Fields</h1>
-            <p>EST. 2024 | 屏東萬巒在地時光</p>
+            <p class="hero-subtitle">探索萬巒．深度地景．自然共生</p>
         </header>
 
-        <div class="container">
-            
-            <section id="open-activities">
-                <h2>開放報名中的活動 🍃</h2>
-                <div class="status-msg">目前暫無開放報名的活動</div>
-            </section>
+        <div class="grid-layout">
+            <!-- Cards -->
+            <div class="glass-card" style="animation-delay: 0.1s;">
+                <div class="icon-wrapper">
+                    <svg class="leaf-icon" width="40" height="40" viewBox="0 0 24 24"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8.13,20C11,20 14.28,17.29 18,10C19.56,6.91 20,4.6 20,3C20,1.34 18.66,0 17,0C15.4,0 13.09,0.44 10,2C2.71,5.72 0,9 0,11.87C0,12.36 0.13,12.86 0.3,13.34L2.66,14.29L2,16.18C7.17,18.1 13.31,16 16,7C16.33,5.9 16.5,4.85 16.5,3.9C16.5,3.4 16.1,3 15.6,3C14.65,3 13.6,3.17 12.5,3.5C9.56,4.41 7.24,5.9 5.5,8C7.6,8 9.75,8.1 12,8.1C13.65,8.1 15.35,8.05 17,8Z"/></svg>
+                </div>
+                <h2>開放報名中</h2>
+                <p>感受土地的脈動與芬芳</p>
+                <div class="status-badge">目前暫無開放報名的活動</div>
+            </div>
 
-            <section id="closed-registration">
+            <div class="glass-card" style="animation-delay: 0.2s;">
+                <div class="icon-wrapper">
+                    <svg class="leaf-icon" width="40" height="40" viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/></svg>
+                </div>
                 <h2>報名已截止</h2>
-                <p>此活動報名已結束，感謝您的關注</p>
-                <div class="status-msg">目前暫無剛截止的活動</div>
-            </section>
+                <p>感謝您的熱情關注與支持</p>
+                <div class="status-badge">此活動報名已結束</div>
+            </div>
 
-            <section id="ended-activities">
-                <h2>已經結束的活動 📅</h2>
-                <p><strong>3月16日：</strong> 萬巒春季鄉間漫遊 (已結束)</p>
-                <div class="status-msg">目前暫無其他已結束的活動</div>
-            </section>
+            <div class="glass-card" style="animation-delay: 0.3s;">
+                <div class="icon-wrapper">
+                    <svg class="flower-icon" width="40" height="40" viewBox="0 0 24 24"><path d="M12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,7H13V13H11V7M11,15H13V17H11V15Z"/></svg>
+                </div>
+                <h2>已經結束的活動</h2>
+                <p>留存在心底的美好時光</p>
+                <div class="status-badge">3/16 漫遊活動已圓滿結束</div>
+            </div>
 
-            <section id="upcoming-activities">
-                <h2>未開放報名的活動 🗓️</h2>
-                <p>敬請期待新活動企劃</p>
-                <div class="status-msg">目前暫無預告中的活動</div>
-            </section>
+            <div class="glass-card" style="animation-delay: 0.4s;">
+                <div class="icon-wrapper">
+                    <svg class="leaf-icon" width="40" height="40" viewBox="0 0 24 24"><path d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z"/></svg>
+                </div>
+                <h2>未開放報名</h2>
+                <p>敬請期待全新的活動企劃</p>
+                <div class="status-badge">策劃中，即將公布</div>
+            </div>
 
-            <!-- Retro Calendar Section -->
-            <div class="calendar-container">
+            <!-- Calendar Section -->
+            <section class="calendar-section">
                 <div class="calendar-header">
-                    MARCH 2026 三月
+                    <h2 style="font-family: 'Quicksand'; font-weight: 700;">活動日曆 <span style="font-weight: 300; font-size: 1.2rem;">/ March 2026</span></h2>
+                    <div style="display: flex; gap: 15px;">
+                        <span style="display:flex; align-items:center; gap:5px; font-size:0.8rem;"><i style="width:10px; height:10px; background:#d32f2f; border-radius:2px;"></i> 已結束</span>
+                    </div>
                 </div>
                 <div class="calendar-grid">
-                    <div class="calendar-day-head">日</div>
-                    <div class="calendar-day-head">一</div>
-                    <div class="calendar-day-head">二</div>
-                    <div class="calendar-day-head">三</div>
-                    <div class="calendar-day-head">四</div>
-                    <div class="calendar-day-head">五</div>
-                    <div class="calendar-day-head">六</div>
-                    
-                    <!-- Calendar Days for March 2026 (Starts on Sunday) -->
-                    <div class="calendar-day">1</div>
-                    <div class="calendar-day">2</div>
-                    <div class="calendar-day">3</div>
-                    <div class="calendar-day">4</div>
-                    <div class="calendar-day">5</div>
-                    <div class="calendar-day">6</div>
-                    <div class="calendar-day">7</div>
-                    <div class="calendar-day">8</div>
-                    <div class="calendar-day">9</div>
-                    <div class="calendar-day">10</div>
-                    <div class="calendar-day">11</div>
-                    <div class="calendar-day">12</div>
-                    <div class="calendar-day">13</div>
-                    <div class="calendar-day">14</div>
-                    <div class="calendar-day">15</div>
-                    <div class="calendar-day act-ended">16<br><small>已結束</small></div>
-                    <div class="calendar-day">17</div>
-                    <div class="calendar-day">18</div>
-                    <div class="calendar-day">19</div>
-                    <div class="calendar-day">20</div>
-                    <div class="calendar-day">21</div>
-                    <div class="calendar-day">22</div>
-                    <div class="calendar-day">23</div>
-                    <div class="calendar-day">24</div>
-                    <div class="calendar-day">25</div>
-                    <div class="calendar-day">26</div>
-                    <div class="calendar-day">27</div>
-                    <div class="calendar-day">28</div>
-                    <div class="calendar-day">29</div>
-                    <div class="calendar-day">30</div>
-                    <div class="calendar-day">31</div>
+                    <div class="cal-day-head">SUN</div><div class="cal-day-head">MON</div><div class="cal-day-head">TUE</div><div class="cal-day-head">WED</div><div class="cal-day-head">THU</div><div class="cal-day-head">FRI</div><div class="cal-day-head">SAT</div>
+                    <!-- March 2026 -->
+                    <div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div>
+                    <div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div><div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div>
+                    <div class="cal-day">15</div><div class="cal-day active-ended">16</div><div class="cal-day">17</div><div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div>
+                    <div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div><div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div>
+                    <div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day">31</div>
+                </div>
+            </section>
+
+            <!-- Detailed Info -->
+            <div class="info-section">
+                <div class="info-box">
+                    <div class="interactive-illustration" style="width:60px; margin-bottom:15px;">
+                        <svg viewBox="0 0 24 24"><path fill="#2d6a4f" d="M12,3L2,12H5V20H19V12H22L12,3M12,7.7C13.5,7.7 14.7,8.9 14.7,10.4C14.7,12.3 12,15.2 12,15.2C12,15.2 9.3,12.3 9.3,10.4C9.3,8.9 10.5,7.7 12,7.7Z"/></svg>
+                    </div>
+                    <h3>歷史與地名由來</h3>
+                    <p>萬巒（客家話：Man-lân）原名「萬灤」。早期此地為平埔族聚落，後來客家先民前來開墾。山巒起伏宛如萬座山頭，故得名「萬巒」。</p>
+                    <p>這裡是屏東「六堆」文化中的先鋒堆，保留了非常完整的客家語言環境與傳統建築，散發著濃厚的客家底蘊。</p>
                 </div>
 
-                <div class="calendar-legend">
-                    <div class="legend-item"><span class="dot" style="background-color: var(--retro-accent-green);"></span> 開放中</div>
-                    <div class="legend-item"><span class="dot" style="background-color: var(--retro-accent-red);"></span> 已截止</div>
-                    <div class="legend-item"><span class="dot" style="background-color: var(--ended-color);"></span> 已結束 (3/16)</div>
-                    <div class="legend-item"><span class="dot" style="background-color: var(--retro-gold);"></span> 期待中</div>
+                <div class="info-box">
+                    <div class="interactive-illustration" style="width:60px; margin-bottom:15px;">
+                        <svg viewBox="0 0 24 24"><path fill="#ff9f1c" d="M11,9H13V11H11V9M11,13H13V17H11V13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20Z"/></svg>
+                    </div>
+                    <h3>在地舌尖風味</h3>
+                    <p style="margin-bottom:10px;"><strong>萬巒豬腳：</strong> 只滷不炸且吃冷的。口感Q彈不油膩，靈魂標配是特製蒜蓉醬油。</p>
+                    <p style="margin-bottom:10px;"><strong>客家粄條：</strong> 又稱面帕粄，純米漿製成，厚實富有彈性。</p>
+                    <p><strong>熱帶水果：</strong> 大武山泉水孕育出的海鴻蓮霧與鳳梨，品質冠絕全台。</p>
                 </div>
             </div>
 
-            <div class="deep-dive">
-                <h2>萬巒深呼吸</h2>
-                <p style="font-size: 0.9rem; letter-spacing: 2px;">Deep Dive into Wanluan</p>
-                <br>
-                <h3>🏛️ 歷史與地名由來</h3>
-                <p>萬巒（客家話：Man-lân）原名「萬灤」。早期此地為平埔族聚落，後來客家先民前來開墾。山巒起伏宛如萬座山頭，故得名「萬巒」。</p>
-                <p>這裡是屏東「六堆」文化中的先鋒堆，保留了非常完整的客家語言環境與傳統建築，散發著濃厚的客家底蘊。</p>
-                <br>
-                <h3>🍽️ 在地舌尖風味</h3>
-                <p><strong>萬巒豬腳：</strong> 只滷不炸且吃冷的。口感Q彈不油膩，搭配特製蒜蓉醬油是靈魂標配。</p>
-                <p><strong>客家粄條：</strong> 又稱面帕粄，以純米漿製成，厚實富有彈性。</p>
-                <p><strong>熱帶水果：</strong> 得益於大武山泉水，海鴻蓮霧與鳳梨品質極佳。</p>
-            </div>
-
-            <div class="quote-box">
+            <div class="quote-banner">
                 「萬巒是一個節奏緩慢、充滿生活感的地方。下次來訪，多留兩個小時給巷弄。」
             </div>
-
         </div>
-    </div>
+    </main>
+
+    <footer style="text-align: center; padding: 40px; color: var(--nature-deep); opacity: 0.6; font-size: 0.9rem;">
+        &copy; 2026 Wanluan Fields. All Rights Reserved.
+    </footer>
 
 </body>
 </html>
