@@ -3,343 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="萬巒深呼吸 Deep Dive into Wanluan - 探索屏東萬巒的在地生活、客家文化與活動">
-    <title>Wanluan Fields</title>
+    <meta name="description" content="Wanluan Fields - 萬巒深呼吸，感受復古風情與客家文化">
+    <title>Wanluan Fields | 萬巒深呼吸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2d6a4f;
-            --primary-light: #40916c;
-            --background: #f8f9fa;
-            --surface: rgba(255, 255, 255, 0.7);
-            --text-main: #1b4332;
-            --text-muted: #52796f;
-            --accent: #d8f3dc;
+            --retro-bg: #f2e8cf;
+            --retro-paper: #f9f4e8;
+            --retro-text: #3d2b1f;
+            --retro-border: #5d4037;
+            --retro-accent-red: #bc4749;
+            --retro-accent-green: #6a994e;
+            --retro-accent-blue: #386641;
+            --retro-gold: #a67c52;
+            --ended-color: #8d99ae;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', 'Microsoft JhengHei', sans-serif;
         }
 
         body {
-            background-color: var(--background);
-            background-image: radial-gradient(circle at 10% 20%, rgb(216, 243, 220) 0%, rgb(248, 249, 250) 90%);
-            color: var(--text-main);
+            background-color: var(--retro-bg);
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            color: var(--retro-text);
+            font-family: 'Noto Serif TC', serif;
             line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .main-wrapper {
+            max-width: 900px;
+            margin: 40px auto;
+            border: 4px double var(--retro-border);
+            padding: 40px;
+            background-color: var(--retro-paper);
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        /* Retro Stamp Decor */
+        .main-wrapper::after {
+            content: "Wanluan";
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            border: 3px solid var(--retro-accent-red);
+            color: var(--retro-accent-red);
+            padding: 5px 15px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            transform: rotate(15deg);
+            opacity: 0.6;
+            border-radius: 5px;
+            text-transform: uppercase;
         }
 
         header {
-            width: 100%;
-            padding: 5rem 2rem;
             text-align: center;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
-            margin-bottom: 3rem;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            border-bottom: 2px solid var(--retro-border);
+            margin-bottom: 40px;
+            padding-bottom: 20px;
         }
 
         h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-            animation: fadeInDown 0.8s ease-out;
-            letter-spacing: -1px;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
         .container {
-            max-width: 1000px;
-            width: 100%;
-            padding: 0 2rem;
             display: grid;
             grid-template-columns: 1fr;
-            gap: 2rem;
-            margin-bottom: 4rem;
+            gap: 40px;
         }
 
-        @media (min-width: 768px) {
-            .container {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        section {
+            border: 1px solid var(--retro-border);
+            padding: 20px;
+            position: relative;
         }
 
-        .card {
-            background: var(--surface);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            border-radius: 20px;
-            padding: 2.5rem 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
-            animation: fadeInUp 0.8s ease-out backwards;
+        section h2 {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background-color: var(--retro-paper);
+            padding: 0 15px;
+            font-size: 1.5rem;
+            color: var(--retro-border);
+        }
+
+        .status-msg {
+            font-style: italic;
+            color: #777;
+            margin-top: 10px;
+        }
+
+        /* Calendar Styles */
+        .calendar-container {
+            margin-top: 40px;
+            border: 2px solid var(--retro-border);
+            padding: 20px;
+        }
+
+        .calendar-header {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(45, 106, 79, 0.12);
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover .card-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .card h2 {
-            font-size: 1.4rem;
-            margin-bottom: 0.8rem;
-            color: var(--primary);
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
             font-weight: 700;
         }
 
-        .card p {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-        }
-
-        .deep-dive {
-            grid-column: 1 / -1;
-            margin-top: 3rem;
-            animation: fadeInUp 0.8s ease-out backwards;
-            animation-delay: 0.5s;
-        }
-
-        .deep-dive h2 {
-            font-size: 2.8rem;
-            text-align: center;
-            margin-bottom: 0.2rem;
-            color: var(--primary);
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-
-        .deep-dive .subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            margin-bottom: 3.5rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .deep-dive-grid {
+        .calendar-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            text-align: center;
         }
 
-        @media (min-width: 768px) {
-            .deep-dive-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+        .calendar-day-head {
+            font-weight: bold;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--retro-border);
         }
 
-        .info-block {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 2.5rem;
-            border-radius: 20px;
-            border-left: 6px solid var(--primary-light);
-            transition: all 0.4s ease;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+        .calendar-day {
+            padding: 10px;
+            border: 1px solid #ddd;
+            min-height: 60px;
+            position: relative;
         }
 
-        .info-block:hover {
-            background: #fff;
-            box-shadow: 0 10px 30px rgba(45, 106, 79, 0.1);
-            transform: translateX(5px);
+        .calendar-day.empty {
+            background-color: #eee;
         }
 
-        .info-block h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-main);
+        /* Activity Colors in Calendar */
+        .act-ended {
+            background-color: var(--ended-color) !important;
+            color: white;
+            text-decoration: line-through;
+        }
+        .act-open {
+            background-color: var(--retro-accent-green) !important;
+            color: white;
+        }
+        .act-closed {
+            background-color: var(--retro-accent-red) !important;
+            color: white;
+        }
+        .act-upcoming {
+            background-color: var(--retro-gold) !important;
+            color: white;
+        }
+
+        .calendar-legend {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 5px;
         }
 
-        .info-block p {
-            margin-bottom: 1.2rem;
-            line-height: 1.8;
-            color: var(--text-muted);
-            font-size: 1.05rem;
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
         }
 
-        .info-block ul {
-            list-style: none;
+        /* Deep Dive Styles */
+        .deep-dive {
+            background-color: #efeadb;
+            padding: 30px;
+            border-top: 4px double var(--retro-border);
+            margin-top: 40px;
         }
 
-        .info-block ul li {
-            margin-bottom: 1.2rem;
-            padding-left: 1.8rem;
-            position: relative;
-            line-height: 1.6;
-            color: var(--text-muted);
-            font-size: 1.05rem;
+        .deep-dive h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--retro-border);
+            display: inline-block;
         }
 
-        .info-block ul li::before {
-            content: '•';
-            color: var(--primary-light);
-            font-size: 1.8rem;
-            position: absolute;
-            left: 0;
-            top: -6px;
-        }
-
-        .info-block ul li strong {
-            color: var(--text-main);
-            font-weight: 600;
-        }
-
-        .quote-section {
-            grid-column: 1 / -1;
+        .quote-box {
+            margin-top: 40px;
             text-align: center;
-            padding: 5rem 2rem;
-            margin-top: 2rem;
-            position: relative;
-            animation: fadeInUp 0.8s ease-out backwards;
-            animation-delay: 0.7s;
-        }
-
-        .quote-section::before {
-            content: '"';
-            font-size: 8rem;
-            color: var(--accent);
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: -1;
-            font-family: Georgia, serif;
-            opacity: 0.7;
-        }
-
-        .quote-section p {
-            font-size: 1.6rem;
             font-style: italic;
-            color: var(--text-main);
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.9;
-            font-weight: 400;
-            text-shadow: 0 2px 10px rgba(255,255,255,0.8);
+            font-size: 1.2rem;
+            padding: 20px;
+            border: 1px dashed var(--retro-border);
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .main-wrapper { padding: 20px; }
+            .calendar-day { min-height: 40px; font-size: 0.8rem; }
         }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Stagger animations */
-        .card:nth-child(1) { animation-delay: 0.1s; }
-        .card:nth-child(2) { animation-delay: 0.2s; }
-        .card:nth-child(3) { animation-delay: 0.3s; }
-        .card:nth-child(4) { animation-delay: 0.4s; }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header>
-        <h1>Wanluan Fields</h1>
-    </header>
+    <div class="main-wrapper">
+        <header>
+            <h1>Wanluan Fields</h1>
+            <p>EST. 2024 | 屏東萬巒在地時光</p>
+        </header>
 
-    <main class="container">
-        
-        <!-- Events Section -->
-        <div class="card">
-            <span class="card-icon">🍃</span>
-            <h2>開放報名中的活動</h2>
-            <p>目前暫無開放報名的活動</p>
-        </div>
-
-        <div class="card">
-            <span class="card-icon">⏳</span>
-            <h2>報名已截止</h2>
-            <p>此活動報名已結束，感謝您的關注</p>
-        </div>
-
-        <div class="card">
-            <span class="card-icon">📅</span>
-            <h2>已經結束的活動</h2>
-            <p>目前暫無已結束的活動</p>
-        </div>
-
-        <div class="card">
-            <span class="card-icon">🗓️</span>
-            <h2>未開放報名的活動</h2>
-            <p>敬請期待新活動企劃</p>
-        </div>
-
-        <!-- Deep Dive Section -->
-        <div class="deep-dive">
-            <h2>萬巒深呼吸</h2>
-            <div class="subtitle">Deep Dive into Wanluan</div>
+        <div class="container">
             
-            <div class="deep-dive-grid">
-                <div class="info-block">
-                    <h3>🏛️ 歷史與地名由來</h3>
-                    <p>萬巒（客家話：Man-lân）原名「萬灤」。早期此地為平埔族聚落，後來客家先民前來開墾。山巒起伏宛如萬座山頭，故得名「萬巒」。</p>
-                    <p>這裡是屏東「六堆」文化中的先鋒堆，保留了非常完整的客家語言環境與傳統建築，散發著濃厚的客家底蘊。</p>
+            <section id="open-activities">
+                <h2>開放報名中的活動 🍃</h2>
+                <div class="status-msg">目前暫無開放報名的活動</div>
+            </section>
+
+            <section id="closed-registration">
+                <h2>報名已截止</h2>
+                <p>此活動報名已結束，感謝您的關注</p>
+                <div class="status-msg">目前暫無剛截止的活動</div>
+            </section>
+
+            <section id="ended-activities">
+                <h2>已經結束的活動 📅</h2>
+                <p><strong>3月16日：</strong> 萬巒春季鄉間漫遊 (已結束)</p>
+                <div class="status-msg">目前暫無其他已結束的活動</div>
+            </section>
+
+            <section id="upcoming-activities">
+                <h2>未開放報名的活動 🗓️</h2>
+                <p>敬請期待新活動企劃</p>
+                <div class="status-msg">目前暫無預告中的活動</div>
+            </section>
+
+            <!-- Retro Calendar Section -->
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    MARCH 2026 三月
+                </div>
+                <div class="calendar-grid">
+                    <div class="calendar-day-head">日</div>
+                    <div class="calendar-day-head">一</div>
+                    <div class="calendar-day-head">二</div>
+                    <div class="calendar-day-head">三</div>
+                    <div class="calendar-day-head">四</div>
+                    <div class="calendar-day-head">五</div>
+                    <div class="calendar-day-head">六</div>
+                    
+                    <!-- Calendar Days for March 2026 (Starts on Sunday) -->
+                    <div class="calendar-day">1</div>
+                    <div class="calendar-day">2</div>
+                    <div class="calendar-day">3</div>
+                    <div class="calendar-day">4</div>
+                    <div class="calendar-day">5</div>
+                    <div class="calendar-day">6</div>
+                    <div class="calendar-day">7</div>
+                    <div class="calendar-day">8</div>
+                    <div class="calendar-day">9</div>
+                    <div class="calendar-day">10</div>
+                    <div class="calendar-day">11</div>
+                    <div class="calendar-day">12</div>
+                    <div class="calendar-day">13</div>
+                    <div class="calendar-day">14</div>
+                    <div class="calendar-day">15</div>
+                    <div class="calendar-day act-ended">16<br><small>已結束</small></div>
+                    <div class="calendar-day">17</div>
+                    <div class="calendar-day">18</div>
+                    <div class="calendar-day">19</div>
+                    <div class="calendar-day">20</div>
+                    <div class="calendar-day">21</div>
+                    <div class="calendar-day">22</div>
+                    <div class="calendar-day">23</div>
+                    <div class="calendar-day">24</div>
+                    <div class="calendar-day">25</div>
+                    <div class="calendar-day">26</div>
+                    <div class="calendar-day">27</div>
+                    <div class="calendar-day">28</div>
+                    <div class="calendar-day">29</div>
+                    <div class="calendar-day">30</div>
+                    <div class="calendar-day">31</div>
                 </div>
 
-                <div class="info-block">
-                    <h3>🍽️ 在地舌尖風味</h3>
-                    <ul>
-                        <li><strong>萬巒豬腳：</strong> 只滷不炸且吃冷的。口感Q彈不油膩，搭配特製蒜蓉醬油是靈魂標配。</li>
-                        <li><strong>客家粄條：</strong> 又稱面帕粄，以純米漿製成，厚實富有彈性。</li>
-                        <li><strong>熱帶水果：</strong> 得益於大武山泉水，海鴻蓮霧與鳳梨品質極佳。</li>
-                    </ul>
+                <div class="calendar-legend">
+                    <div class="legend-item"><span class="dot" style="background-color: var(--retro-accent-green);"></span> 開放中</div>
+                    <div class="legend-item"><span class="dot" style="background-color: var(--retro-accent-red);"></span> 已截止</div>
+                    <div class="legend-item"><span class="dot" style="background-color: var(--ended-color);"></span> 已結束 (3/16)</div>
+                    <div class="legend-item"><span class="dot" style="background-color: var(--retro-gold);"></span> 期待中</div>
                 </div>
             </div>
-        </div>
 
-        <div class="quote-section">
-            <p>「萬巒是一個節奏緩慢、充滿生活感的地方。下次來訪，多留兩個小時給巷弄，</p>
-        </div>
+            <div class="deep-dive">
+                <h2>萬巒深呼吸</h2>
+                <p style="font-size: 0.9rem; letter-spacing: 2px;">Deep Dive into Wanluan</p>
+                <br>
+                <h3>🏛️ 歷史與地名由來</h3>
+                <p>萬巒（客家話：Man-lân）原名「萬灤」。早期此地為平埔族聚落，後來客家先民前來開墾。山巒起伏宛如萬座山頭，故得名「萬巒」。</p>
+                <p>這裡是屏東「六堆」文化中的先鋒堆，保留了非常完整的客家語言環境與傳統建築，散發著濃厚的客家底蘊。</p>
+                <br>
+                <h3>🍽️ 在地舌尖風味</h3>
+                <p><strong>萬巒豬腳：</strong> 只滷不炸且吃冷的。口感Q彈不油膩，搭配特製蒜蓉醬油是靈魂標配。</p>
+                <p><strong>客家粄條：</strong> 又稱面帕粄，以純米漿製成，厚實富有彈性。</p>
+                <p><strong>熱帶水果：</strong> 得益於大武山泉水，海鴻蓮霧與鳳梨品質極佳。</p>
+            </div>
 
-    </main>
+            <div class="quote-box">
+                「萬巒是一個節奏緩慢、充滿生活感的地方。下次來訪，多留兩個小時給巷弄。」
+            </div>
+
+        </div>
+    </div>
 
 </body>
 </html>
