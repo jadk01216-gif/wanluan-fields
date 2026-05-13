@@ -33,34 +33,31 @@
             min-height: 100vh;
         }
 
-        /* SVG Background Layer */
-        .nature-bg {
-            position: fixed;
-            top: 0;
+        /* Field Background Styles */
+        .field-container {
+            position: absolute;
+            bottom: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
+            height: 45vh;
             overflow: hidden;
+            z-index: -1;
         }
 
-        /* Tall Mountains Background */
-        .mountain-container {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 60vh;
-            display: flex;
-            align-items: flex-end;
+        .grass-blade {
+            fill: #40916c;
+            transform-origin: bottom center;
+            animation: sway 3s ease-in-out infinite;
         }
 
-        .mountain-svg {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: auto;
+        @keyframes sway {
+            0%, 100% { transform: rotate(-2deg) skewX(-2deg); }
+            50% { transform: rotate(3deg) skewX(3deg); }
+        }
+
+        .crop-row {
+            fill: #2d6a4f;
+            opacity: 0.6;
         }
 
         /* Falling Leaves Animation */
@@ -75,21 +72,11 @@
         }
 
         @keyframes fall {
-            0% {
-                transform: translateY(0) rotate(0deg) translateX(0);
-            }
-            25% {
-                transform: translateY(25vh) rotate(90deg) translateX(50px);
-            }
-            50% {
-                transform: translateY(50vh) rotate(180deg) translateX(-50px);
-            }
-            75% {
-                transform: translateY(75vh) rotate(270deg) translateX(50px);
-            }
-            100% {
-                transform: translateY(110vh) rotate(360deg) translateX(0);
-            }
+            0% { transform: translateY(0) rotate(0deg) translateX(0); }
+            25% { transform: translateY(25vh) rotate(90deg) translateX(50px); }
+            50% { transform: translateY(50vh) rotate(180deg) translateX(-50px); }
+            75% { transform: translateY(75vh) rotate(270deg) translateX(50px); }
+            100% { transform: translateY(110vh) rotate(360deg) translateX(0); }
         }
 
         /* Interactive Illustration Styles */
@@ -210,6 +197,19 @@
             margin-top: 50px;
             border: 1px solid var(--glass-border);
             box-shadow: 0 25px 50px rgba(0,0,0,0.06);
+            max-height: 800px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .calendar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        .month-block {
+            animation: fadeInUp 0.5s ease-out;
         }
 
         .calendar-header {
@@ -334,17 +334,79 @@
 
     <!-- SVG Background Elements -->
     <div class="nature-bg">
-        <!-- Tall Mountain Background -->
-        <div class="mountain-container">
-            <svg class="mountain-svg" viewBox="0 0 1440 800" preserveAspectRatio="none">
-                <!-- Back Mountain -->
-                <path d="M0,800 L400,200 L800,500 L1100,100 L1440,400 L1440,800 Z" fill="#1b4332" opacity="0.2" />
-                <!-- Middle Mountain -->
-                <path d="M0,800 L300,350 L600,600 L1000,250 L1440,550 L1440,800 Z" fill="#2d6a4f" opacity="0.3" />
-                <!-- Front Forest Line -->
-                <path d="M0,800 L200,600 L400,750 L700,550 L1000,700 L1440,600 L1440,800 Z" fill="#40916c" opacity="0.4" />
+        <!-- Background Mountains -->
+        <div class="mountain-container" style="height: 100vh; opacity: 0.4;">
+            <svg viewBox="0 0 1440 800" preserveAspectRatio="none" style="width: 100%; height: 100%;">
+                <path d="M0,800 L400,200 L800,500 L1100,100 L1440,400 L1440,800 Z" fill="#1b4332" opacity="0.1" />
+                <path d="M0,800 L300,350 L600,600 L1000,250 L1440,550 L1440,800 Z" fill="#2d6a4f" opacity="0.15" />
             </svg>
         </div>
+
+        <!-- Field in the Foreground -->
+        <div class="field-container">
+            <svg id="field-svg" viewBox="0 0 1440 400" preserveAspectRatio="none" style="width: 100%; height: 100%;">
+                <defs>
+                    <linearGradient id="field-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#52b788;stop-opacity:0.2" />
+                        <stop offset="100%" style="stop-color:#2d6a4f;stop-opacity:0.6" />
+                    </linearGradient>
+                </defs>
+                <!-- Ground -->
+                <rect width="1440" height="400" fill="url(#field-grad)" />
+                
+                <!-- Crop Rows -->
+                <g id="crop-rows"></g>
+                
+                <!-- Interactive Grass -->
+                <g id="foreground-grass"></g>
+            </svg>
+        </div>
+
+        <script>
+            // Generate Crop Rows
+            const rowsContainer = document.getElementById('crop-rows');
+            for(let i=0; i<8; i++) {
+                const y = 50 + i * 40;
+                const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                path.setAttribute("d", `M0,${y + 20} Q720,${y - 20} 1440,${y + 20} L1440,400 L0,400 Z`);
+                path.classList.add('crop-row');
+                path.style.opacity = 0.1 + (i * 0.1);
+                rowsContainer.appendChild(path);
+            }
+
+            // Generate Grass
+            const grassContainer = document.getElementById('foreground-grass');
+            for(let i=0; i<120; i++) {
+                const x = Math.random() * 1440;
+                const y = 320 + Math.random() * 80;
+                const height = 20 + Math.random() * 40;
+                const blade = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                blade.setAttribute("d", `M${x},${y} Q${x + 5},${y - height/2} ${x},${y - height} Q${x - 5},${y - height/2} ${x},${y} Z`);
+                blade.classList.add('grass-blade');
+                blade.style.animationDelay = (Math.random() * 3) + 's';
+                blade.style.animationDuration = (2 + Math.random() * 2) + 's';
+                blade.style.fill = ['#2d6a4f', '#40916c', '#52b788', '#74c69d'][Math.floor(Math.random() * 4)];
+                grassContainer.appendChild(blade);
+            }
+
+            // Interactive Wind Effect
+            document.addEventListener('mousemove', (e) => {
+                const xPercent = e.clientX / window.innerWidth;
+                const blades = document.querySelectorAll('.grass-blade');
+                blades.forEach(blade => {
+                    const rect = blade.getBoundingClientRect();
+                    const bladeX = rect.left + rect.width / 2;
+                    const dist = Math.abs(e.clientX - bladeX);
+                    if (dist < 200) {
+                        const push = (200 - dist) / 10;
+                        const direction = e.clientX > bladeX ? -1 : 1;
+                        blade.style.transform = `rotate(${direction * push}deg) skewX(${direction * push}deg)`;
+                    } else {
+                        blade.style.transform = '';
+                    }
+                });
+            });
+        </script>
 
         <!-- Falling Leaves -->
         <script>
@@ -432,23 +494,76 @@
             </div>
 
             <!-- Calendar Section -->
-            <section class="calendar-section">
-                <div class="calendar-header">
-                    <h2 style="font-family: 'Quicksand'; font-weight: 700;">活動日曆 <span style="font-weight: 300; font-size: 1.3rem;">/ 2026 三月</span></h2>
-                    <div style="display: flex; gap: 20px; font-size: 0.9rem;">
-                        <span style="display:flex; align-items:center; gap:8px;"><i style="width:12px; height:12px; background:#e53935; border-radius:3px;"></i> 已結束</span>
-                    </div>
+            <section class="calendar-section" id="calendar-section">
+                <div class="calendar-container" id="calendar-container">
+                    <!-- Months will be injected here -->
                 </div>
-                <div class="calendar-grid">
-                    <div class="cal-day-head">SUN</div><div class="cal-day-head">MON</div><div class="cal-day-head">TUE</div><div class="cal-day-head">WED</div><div class="cal-day-head">THU</div><div class="cal-day-head">FRI</div><div class="cal-day-head">SAT</div>
-                    <!-- March 2026 -->
-                    <div class="cal-day">1</div><div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div>
-                    <div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day">10</div><div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day">14</div>
-                    <div class="cal-day">15</div><div class="cal-day active-ended">16</div><div class="cal-day">17</div><div class="cal-day">18</div><div class="cal-day">19</div><div class="cal-day">20</div><div class="cal-day">21</div>
-                    <div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div><div class="cal-day">25</div><div class="cal-day">26</div><div class="cal-day">27</div><div class="cal-day">28</div>
-                    <div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day">31</div>
-                </div>
+                <div id="calendar-sentinel" style="height: 20px;"></div>
             </section>
+
+            <script>
+                const calendarContainer = document.getElementById('calendar-container');
+                const sentinel = document.getElementById('calendar-sentinel');
+                
+                let currentYear = 2026;
+                let currentMonth = 4; // May (0-indexed)
+
+                function generateMonthHTML(year, month) {
+                    const monthNames = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
+                    const daysInMonth = new Date(year, month + 1, 0).getDate();
+                    const firstDay = new Date(year, month, 1).getDay();
+                    
+                    let html = `
+                        <div class="month-block">
+                            <div class="calendar-header">
+                                <h2 style="font-family: 'Quicksand'; font-weight: 700;">活動日曆 <span style="font-weight: 300; font-size: 1.3rem;">/ ${year} ${monthNames[month]}</span></h2>
+                                <div style="display: flex; gap: 20px; font-size: 0.9rem;">
+                                    <span style="display:flex; align-items:center; gap:8px;"><i style="width:12px; height:12px; background:#e53935; border-radius:3px;"></i> 已結束</span>
+                                </div>
+                            </div>
+                            <div class="calendar-grid">
+                                <div class="cal-day-head">SUN</div><div class="cal-day-head">MON</div><div class="cal-day-head">TUE</div><div class="cal-day-head">WED</div><div class="cal-day-head">THU</div><div class="cal-day-head">FRI</div><div class="cal-day-head">SAT</div>
+                    `;
+
+                    // Empty cells for days before the first day of the month
+                    for (let i = 0; i < firstDay; i++) {
+                        html += `<div class="cal-day" style="opacity: 0; pointer-events: none;"></div>`;
+                    }
+
+                    // Days of the month
+                    for (let day = 1; day <= daysInMonth; day++) {
+                        // Example: Mark 3/16 as ended (if we were in March)
+                        const isPast = (year < 2026 || (year === 2026 && month < 2) || (year === 2026 && month === 2 && day <= 16));
+                        const endedClass = (year === 2026 && month === 2 && day === 16) ? 'active-ended' : '';
+                        
+                        html += `<div class="cal-day ${endedClass}">${day}</div>`;
+                    }
+
+                    html += `</div></div>`;
+                    return html;
+                }
+
+                function loadNextMonth() {
+                    calendarContainer.insertAdjacentHTML('beforeend', generateMonthHTML(currentYear, currentMonth));
+                    currentMonth++;
+                    if (currentMonth > 11) {
+                        currentMonth = 0;
+                        currentYear++;
+                    }
+                }
+
+                // Initial load
+                for(let i=0; i<2; i++) loadNextMonth();
+
+                // Infinite Scroll Observer
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        loadNextMonth();
+                    }
+                }, { root: document.getElementById('calendar-section'), threshold: 0.1 });
+
+                observer.observe(sentinel);
+            </script>
 
             <!-- Detailed Info -->
             <div class="info-section">
