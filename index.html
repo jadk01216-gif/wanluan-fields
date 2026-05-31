@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Wanluan Fields - 萬巒深呼吸，自然與生活的完美融合">
     <title>Wanluan Fields | 自然深呼吸</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Quicksand:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --nature-green: #2d6a4f;
@@ -31,6 +34,22 @@
             font-family: 'Outfit', sans-serif;
             overflow-x: hidden;
             min-height: 100vh;
+            position: relative;
+        }
+
+        /* Background Mountains Styles - Fixed to Background and Made Smaller */
+        .mountain-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 35vh;
+            /* 縮小山的高度，從 100vh 降到 35vh */
+            overflow: hidden;
+            z-index: -2;
+            /* 放在最底層 */
+            opacity: 0.35;
+            pointer-events: none;
         }
 
         /* Field Background Styles */
@@ -51,8 +70,15 @@
         }
 
         @keyframes sway {
-            0%, 100% { transform: rotate(-2deg) skewX(-2deg); }
-            50% { transform: rotate(3deg) skewX(3deg); }
+
+            0%,
+            100% {
+                transform: rotate(-2deg) skewX(-2deg);
+            }
+
+            50% {
+                transform: rotate(3deg) skewX(3deg);
+            }
         }
 
         .crop-row {
@@ -69,14 +95,30 @@
             fill: var(--nature-green);
             opacity: 0.7;
             animation: fall linear infinite;
+            pointer-events: none;
+            z-index: 0;
         }
 
         @keyframes fall {
-            0% { transform: translateY(0) rotate(0deg) translateX(0); }
-            25% { transform: translateY(25vh) rotate(90deg) translateX(50px); }
-            50% { transform: translateY(50vh) rotate(180deg) translateX(-50px); }
-            75% { transform: translateY(75vh) rotate(270deg) translateX(50px); }
-            100% { transform: translateY(110vh) rotate(360deg) translateX(0); }
+            0% {
+                transform: translateY(0) rotate(0deg) translateX(0);
+            }
+
+            25% {
+                transform: translateY(25vh) rotate(90deg) translateX(50px);
+            }
+
+            50% {
+                transform: translateY(50vh) rotate(180deg) translateX(-50px);
+            }
+
+            75% {
+                transform: translateY(75vh) rotate(270deg) translateX(50px);
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg) translateX(0);
+            }
         }
 
         /* Interactive Illustration Styles */
@@ -84,6 +126,7 @@
             cursor: pointer;
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+
         .interactive-illustration:hover {
             transform: scale(1.1) rotate(3deg);
         }
@@ -99,7 +142,8 @@
 
         header {
             text-align: center;
-            padding: 80px 0;
+            padding: 60px 0;
+            /* 略微縮減 padding 讓畫面更緊湊 */
             animation: fadeInDown 1s ease-out;
         }
 
@@ -109,7 +153,7 @@
             color: var(--nature-deep);
             letter-spacing: -3px;
             margin-bottom: 10px;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
 
         .hero-subtitle {
@@ -117,7 +161,7 @@
             font-size: 1.6rem;
             color: var(--nature-green);
             font-weight: 600;
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
             display: inline-block;
             padding: 5px 20px;
             border-radius: 50px;
@@ -139,7 +183,7 @@
             border-radius: 30px;
             padding: 40px 30px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
             transition: all 0.4s ease;
             display: flex;
             flex-direction: column;
@@ -196,7 +240,7 @@
             padding: 50px;
             margin-top: 50px;
             border: 1px solid var(--glass-border);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.06);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.06);
             max-height: 800px;
             overflow-y: auto;
             position: relative;
@@ -251,7 +295,7 @@
         .cal-day:hover {
             background: white;
             transform: scale(1.08);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
         }
 
         .cal-day.active-ended {
@@ -309,33 +353,59 @@
             font-family: 'Quicksand', sans-serif;
             color: var(--nature-deep);
             font-style: italic;
-            text-shadow: 0 2px 5px rgba(255,255,255,0.8);
+            text-shadow: 0 2px 5px rgba(255, 255, 255, 0.8);
         }
 
         @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-40px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(60px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 850px) {
-            h1 { font-size: 3.5rem; }
-            .info-section { grid-template-columns: 1fr; }
-            .cal-day { font-size: 1rem; }
-            .calendar-section { padding: 25px; }
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            .info-section {
+                grid-template-columns: 1fr;
+            }
+
+            .cal-day {
+                font-size: 1rem;
+            }
+
+            .calendar-section {
+                padding: 25px;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <!-- SVG Background Elements -->
     <div class="nature-bg">
-        <!-- Background Mountains -->
-        <div class="mountain-container" style="height: 100vh; opacity: 0.4;">
+        <!-- Background Mountains (Fixed Placement and height changed to 35vh) -->
+        <div class="mountain-container">
             <svg viewBox="0 0 1440 800" preserveAspectRatio="none" style="width: 100%; height: 100%;">
                 <path d="M0,800 L400,200 L800,500 L1100,100 L1440,400 L1440,800 Z" fill="#1b4332" opacity="0.1" />
                 <path d="M0,800 L300,350 L600,600 L1000,250 L1440,550 L1440,800 Z" fill="#2d6a4f" opacity="0.15" />
@@ -353,10 +423,10 @@
                 </defs>
                 <!-- Ground -->
                 <rect width="1440" height="400" fill="url(#field-grad)" />
-                
+
                 <!-- Crop Rows -->
                 <g id="crop-rows"></g>
-                
+
                 <!-- Interactive Grass -->
                 <g id="foreground-grass"></g>
             </svg>
@@ -365,7 +435,7 @@
         <script>
             // Generate Crop Rows
             const rowsContainer = document.getElementById('crop-rows');
-            for(let i=0; i<8; i++) {
+            for (let i = 0; i < 8; i++) {
                 const y = 50 + i * 40;
                 const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
                 path.setAttribute("d", `M0,${y + 20} Q720,${y - 20} 1440,${y + 20} L1440,400 L0,400 Z`);
@@ -376,12 +446,12 @@
 
             // Generate Grass
             const grassContainer = document.getElementById('foreground-grass');
-            for(let i=0; i<120; i++) {
+            for (let i = 0; i < 120; i++) {
                 const x = Math.random() * 1440;
                 const y = 320 + Math.random() * 80;
                 const height = 20 + Math.random() * 40;
                 const blade = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                blade.setAttribute("d", `M${x},${y} Q${x + 5},${y - height/2} ${x},${y - height} Q${x - 5},${y - height/2} ${x},${y} Z`);
+                blade.setAttribute("d", `M${x},${y} Q${x + 5},${y - height / 2} ${x},${y - height} Q${x - 5},${y - height / 2} ${x},${y} Z`);
                 blade.classList.add('grass-blade');
                 blade.style.animationDelay = (Math.random() * 3) + 's';
                 blade.style.animationDuration = (2 + Math.random() * 2) + 's';
@@ -412,16 +482,16 @@
         <script>
             const bg = document.querySelector('.nature-bg');
             const leafPath = "M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8.13,20C11,20 14.28,17.29 18,10C19.56,6.91 20,4.6 20,3C20,1.34 18.66,0 17,0C15.4,0 13.09,0.44 10,2C2.71,5.72 0,9 0,11.87C0,12.36 0.13,12.86 0.3,13.34L2.66,14.29L2,16.18C7.17,18.1 13.31,16 16,7C16.33,5.9 16.5,4.85 16.5,3.9C16.5,3.4 16.1,3 15.6,3C14.65,3 13.6,3.17 12.5,3.5C9.56,4.41 7.24,5.9 5.5,8C7.6,8 9.75,8.1 12,8.1C13.65,8.1 15.35,8.05 17,8Z";
-            
-            for(let i=0; i<25; i++) {
+
+            for (let i = 0; i < 25; i++) {
                 const leaf = document.createElementNS("http://www.w3.org/2000/svg", "svg");
                 leaf.setAttribute("viewBox", "0 0 24 24");
                 leaf.classList.add('falling-leaf');
-                
+
                 const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
                 path.setAttribute("d", leafPath);
                 leaf.appendChild(path);
-                
+
                 // Randomize appearance and animation
                 const size = 15 + Math.random() * 30;
                 leaf.style.width = size + 'px';
@@ -431,7 +501,7 @@
                 leaf.style.animationDelay = (Math.random() * 10) + 's';
                 leaf.style.opacity = 0.3 + Math.random() * 0.5;
                 leaf.style.fill = ['#2d6a4f', '#40916c', '#52b788', '#95d5b2'][Math.floor(Math.random() * 4)];
-                
+
                 bg.appendChild(leaf);
             }
         </script>
@@ -459,8 +529,12 @@
         <div class="grid-layout">
             <div class="glass-card" style="animation-delay: 0.1s;">
                 <div class="icon-wrapper">
-                    <svg width="45" height="45" viewBox="0 0 24 24" fill="#2d6a4f"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8.13,20C11,20 14.28,17.29 18,10C19.56,6.91 20,4.6 20,3C20,1.34 18.66,0 17,0C15.4,0 13.09,0.44 10,2C2.71,5.72 0,9 0,11.87C0,12.36 0.13,12.86 0.3,13.34L2.66,14.29L2,16.18C7.17,18.1 13.31,16 16,7C16.33,5.9 16.5,4.85 16.5,3.9C16.5,3.4 16.1,3 15.6,3C14.65,3 13.6,3.17 12.5,3.5C9.56,4.41 7.24,5.9 5.5,8C7.6,8 9.75,8.1 12,8.1C13.65,8.1 15.35,8.05 17,8Z"/></svg>
+                    <svg width="45" height="45" viewBox="0 0 24 24" fill="#2d6a4f">
+                        <path
+                            d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8.13,20C11,20 14.28,17.29 18,10C19.56,6.91 20,4.6 20,3C20,1.34 18.66,0 17,0C15.4,0 13.09,0.44 10,2C2.71,5.72 0,9 0,11.87C0,12.36 0.13,12.86 0.3,13.34L2.66,14.29L2,16.18C7.17,18.1 13.31,16 16,7C16.33,5.9 16.5,4.85 16.5,3.9C16.5,3.4 16.1,3 15.6,3C14.65,3 13.6,3.17 12.5,3.5C9.56,4.41 7.24,5.9 5.5,8C7.6,8 9.75,8.1 12,8.1C13.65,8.1 15.35,8.05 17,8Z" />
+                    </svg>
                 </div>
+                <!-- 修正中文顯示與結構 -->
                 <h2>開放報名中</h2>
                 <p>與自然共享的每一刻</p>
                 <div class="status-badge">目前暫無開放報名的活動</div>
@@ -468,7 +542,10 @@
 
             <div class="glass-card" style="animation-delay: 0.2s;">
                 <div class="icon-wrapper">
-                    <svg width="45" height="45" viewBox="0 0 24 24" fill="#2d6a4f"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/></svg>
+                    <svg width="45" height="45" viewBox="0 0 24 24" fill="#2d6a4f">
+                        <path
+                            d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z" />
+                    </svg>
                 </div>
                 <h2>報名已截止</h2>
                 <p>感謝您的熱切期盼</p>
@@ -477,7 +554,10 @@
 
             <div class="glass-card" style="animation-delay: 0.3s;">
                 <div class="icon-wrapper">
-                    <svg width="45" height="45" viewBox="0 0 24 24" fill="#ff9f1c"><path d="M12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,7H13V13H11V7M11,15H13V17H11V15Z"/></svg>
+                    <svg width="45" height="45" viewBox="0 0 24 24" fill="#ff9f1c">
+                        <path
+                            d="M12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,7H13V13H11V7M11,15H13V17H11V15Z" />
+                    </svg>
                 </div>
                 <h2>已經結束的活動</h2>
                 <p>豐富精彩的過往足跡</p>
@@ -486,7 +566,10 @@
 
             <div class="glass-card" style="animation-delay: 0.4s;">
                 <div class="icon-wrapper">
-                    <svg width="45" height="45" viewBox="0 0 24 24" fill="#2d6a4f"><path d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z"/></svg>
+                    <svg width="45" height="45" viewBox="0 0 24 24" fill="#2d6a4f">
+                        <path
+                            d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z" />
+                    </svg>
                 </div>
                 <h2>未開放報名</h2>
                 <p>醞釀中的自然驚喜</p>
@@ -504,7 +587,7 @@
             <script>
                 const calendarContainer = document.getElementById('calendar-container');
                 const sentinel = document.getElementById('calendar-sentinel');
-                
+
                 let currentYear = 2026;
                 let currentMonth = 4; // May (0-indexed)
 
@@ -512,7 +595,7 @@
                     const monthNames = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"];
                     const daysInMonth = new Date(year, month + 1, 0).getDate();
                     const firstDay = new Date(year, month, 1).getDay();
-                    
+
                     let html = `
                         <div class="month-block">
                             <div class="calendar-header">
@@ -532,10 +615,9 @@
 
                     // Days of the month
                     for (let day = 1; day <= daysInMonth; day++) {
-                        // Example: Mark 3/16 as ended (if we were in March)
                         const isPast = (year < 2026 || (year === 2026 && month < 2) || (year === 2026 && month === 2 && day <= 16));
                         const endedClass = (year === 2026 && month === 2 && day === 16) ? 'active-ended' : '';
-                        
+
                         html += `<div class="cal-day ${endedClass}">${day}</div>`;
                     }
 
@@ -553,7 +635,7 @@
                 }
 
                 // Initial load
-                for(let i=0; i<2; i++) loadNextMonth();
+                for (let i = 0; i < 2; i++) loadNextMonth();
 
                 // Infinite Scroll Observer
                 const observer = new IntersectionObserver((entries) => {
@@ -587,9 +669,11 @@
         </div>
     </main>
 
-    <footer style="text-align: center; padding: 60px; color: var(--nature-deep); opacity: 0.7; font-size: 1rem; position: relative; z-index: 1;">
+    <footer
+        style="text-align: center; padding: 60px; color: var(--nature-deep); opacity: 0.7; font-size: 1rem; position: relative; z-index: 1;">
         &copy; 2026 Wanluan Fields. 深耕土地，呼吸自然。
     </footer>
 
 </body>
+
 </html>
